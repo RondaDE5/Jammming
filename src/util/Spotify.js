@@ -7,7 +7,7 @@ const Spotify = {
   getAccessToken() {
     let checkAccessToken = window.location.href.match(/access_token=([^&]*)/);
     let checkExpiration = window.location.href.match(/expires_in=([^&]*)/);
-    if (accessToken !== undefined) {
+    if (accessToken) {
       return accessToken;
     } else if (checkAccessToken !== null && checkExpiration !== null) {
         accessToken = checkAccessToken[1];
@@ -21,7 +21,7 @@ const Spotify = {
 
   search(term) {
     const url = `https://api.spotify.com/v1/search?type=track&q=${term}`;
-    if(accessToken === undefined) {
+    if(!accessToken) {
       this.getAccessToken();
     }
     return fetch(url, {
